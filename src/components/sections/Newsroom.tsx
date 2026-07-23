@@ -60,7 +60,7 @@ export default function Newsroom() {
         {/* Full-width background image */}
         <div className="mag-image opacity-0 absolute inset-0">
           <Image
-            src="/images/Buddy 247.png"
+            src="/images/buddy 247.png"
             alt="Buddy is er 24/7"
             fill
             className="object-cover"
