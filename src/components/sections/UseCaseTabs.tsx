@@ -98,7 +98,7 @@ export default function UseCaseTabs() {
           </div>
 
           {/* Right — Buddy */}
-          <div className="flex justify-center lg:justify-end lg:-mt-8">
+          <div className="flex justify-center lg:justify-end lg:-mt-28">
             <div className="relative w-full max-w-[520px] aspect-[600/744]">
               <Image
                 src="/images/Buddy laptop.png"
