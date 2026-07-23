@@ -80,9 +80,9 @@ export default function UseCaseTabs() {
           ))}
         </div>
 
-        <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-2 items-center" style={{ gap: 'clamp(40px, 8vw, 120px)' }}>
+        <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: 'clamp(32px, 5vw, 56px)' }}>
           {/* Left — Text */}
-          <div className="max-w-[650px]">
+          <div className="max-w-[650px] lg:pt-4">
             <h3
               className="text-text-primary font-bold"
               style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: '1.15', letterSpacing: '-0.02em' }}
@@ -98,8 +98,8 @@ export default function UseCaseTabs() {
           </div>
 
           {/* Right — Buddy */}
-          <div className="flex justify-center lg:justify-end" style={{ marginTop: 'clamp(-40px, -8vw, -160px)' }}>
-            <div className="relative w-full max-w-[600px] aspect-[600/744]">
+          <div className="flex justify-center lg:justify-end lg:-mt-8">
+            <div className="relative w-full max-w-[520px] aspect-[600/744]">
               <Image
                 src="/images/Buddy laptop.png"
                 alt="Buddy werkt op zijn laptop"
