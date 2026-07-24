@@ -11,67 +11,59 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const steps = [
+const activities = [
   {
-    label: 'STAP 1',
-    title: 'Ik leer jullie kennen',
-    body: 'Ik krijg een onboarding, bekijk jullie cases en leer jullie diensten kennen voordat ik namens jullie contact opneem.',
+    label: 'DAGELIJKS',
+    title: 'Ik onderzoek bedrijven.',
+    body: 'Iedere dag verdiep ik me in tientallen bedrijven.\n\nIk lees websites.\nIk bekijk LinkedIn.\nIk volg nieuws.\nIk ontdek groeisignalen.\n\nIk probeer te begrijpen waar jullie écht waarde kunnen toevoegen.',
   },
   {
-    label: 'STAP 2',
-    title: 'Ik zoek de juiste bedrijven',
-    body: 'Geen willekeurige lijsten. Ik selecteer bedrijven waarvan ik denk dat jullie echt iets kunnen betekenen.',
+    label: 'DAGELIJKS',
+    title: 'Ik herken kansen.',
+    body: 'Niet ieder bedrijf is interessant.\n\nIk zoek naar signalen.\nNieuwe funding.\nNieuwe vacatures.\nEen productlancering.\nEen groeifase.\n\nOf een uitdaging waarbij jullie ervaring direct van waarde kan zijn.',
   },
   {
-    label: 'STAP 3',
-    title: 'Ik onderzoek grondig',
-    body: 'Website, LinkedIn, nieuws, vacatures, groeifase en commerciële kansen. Ik wil begrijpen waar ik waarde kan toevoegen.',
+    label: 'DAGELIJKS',
+    title: 'Ik start gesprekken.',
+    body: 'Soms via e-mail.\nSoms via LinkedIn.\nSoms via Instagram.\nSoms via WhatsApp.\n\nIk kies het kanaal dat het beste past.\n\nEn ik communiceer zoals jullie dat zelf zouden doen.',
   },
   {
-    label: 'STAP 4',
-    title: 'Ik vergelijk met jullie ervaring',
-    body: 'Ik vergelijk iedere prospect met projecten die jullie eerder succesvol hebben uitgevoerd.',
-  },
-  {
-    label: 'STAP 5',
-    title: 'Ik neem contact op',
-    body: 'Pas als ik overtuigd ben dat er een goede match is, stuur ik een persoonlijk bericht en start ik het gesprek.',
+    label: 'DOORLOPEND',
+    title: 'Ik bouw relaties.',
+    body: 'Niet iedereen heeft vandaag tijd.\n\nDus blijf ik rustig in contact.\nIk luister.\nIk denk mee.\nIk volg op.\n\nNet zolang totdat het juiste moment daar is.',
   },
 ]
 
-const stickies = [
+const cards = [
   {
     label: 'ALTIJD ACTIEF',
-    title: 'Ik vergeet nooit een follow-up.',
+    title: 'Ik blijf bezig.',
     lines: [
-      'Niet iedereen heeft vandaag tijd.',
-      'Dus wacht ik rustig af en probeer ik het later nog eens.',
-      'Niet irritant.',
-      'Gewoon op het juiste moment.',
+      'Nieuwe bedrijven ontdekken.',
+      'Nieuwe gesprekken starten.',
+      'Nieuwe relaties opbouwen.',
+      'Iedere werkdag opnieuw.',
     ],
     rotate: '-1.5deg',
   },
   {
     label: 'IK WORD SLIMMER',
-    title: 'Hoe langer ik voor jullie werk, hoe beter ik jullie leer kennen.',
+    title: 'Ik leer iedere dag.',
     lines: [
-      'Ik ontdek welke klanten goed bij jullie passen.',
-      'Welke voorbeelden het beste werken.',
-      'Welke bezwaren vaak terugkomen.',
-      'Hoe beter jullie input, hoe beter mijn output.',
-      'We zijn tenslotte collega’s.',
+      'Ieder gesprek maakt mij beter.',
+      'Ik begrijp jullie markt steeds beter.',
+      'Ik herken sneller de juiste klanten.',
+      'En ik weet steeds beter welke aanpak werkt.',
     ],
     rotate: '1deg',
   },
   {
-    label: 'ALTIJD COLLEGA',
-    title: 'Ik ga nooit meer weg.',
+    label: 'MIJN DOEL',
+    title: 'Ik vul jullie agenda.',
     lines: [
-      'Hoe langer we samenwerken, hoe beter ik jullie bedrijf leer kennen.',
-      'Ik groei met jullie mee.',
-      'Ik leer van iedere opdracht.',
-      'En ik word iedere dag slimmer.',
-      'Samen bouwen we aan duurzame groei.',
+      'Mijn doel is niet zoveel mogelijk berichten versturen.',
+      'Mijn doel is kwalitatieve kennismakingen.',
+      'Zodra iemand wil praten, staat de afspraak in jullie agenda.',
     ],
     rotate: '-0.8deg',
   },
@@ -115,15 +107,31 @@ export default function ProductSuite() {
               className="text-text-primary font-bold mt-5 max-w-[500px]"
               style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', lineHeight: '1.05', letterSpacing: '-0.025em' }}
             >
-              Ik werk in
+              Zo ziet mijn
               <br />
-              vijf stappen
+              werkdag eruit.
             </h2>
             <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-8">
-              Iedere opdracht begint hetzelfde. Ik leer jullie kennen, zoek de juiste bedrijven, onderzoek ze grondig, vergelijk ze met wat jullie eerder hebben gedaan en neem dan pas contact op. Geen templates. Geen massamails.
+              Terwijl jullie werken aan klanten, ben ik de hele dag bezig met het vinden van de volgende.
             </p>
             <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-4">
-              Gewoon goed accountmanagement.
+              Ik onderzoek bedrijven.
+              <br />
+              Ik herken commerci&#235;le signalen.
+              <br />
+              Ik start gesprekken.
+              <br />
+              Ik bouw relaties.
+            </p>
+            <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-4">
+              En zodra iemand wil kennismaken, zet ik een afspraak in jullie agenda.
+            </p>
+            <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-4">
+              Iedere dag onderzoek ik tientallen bedrijven.
+              <br />
+              Niet om zoveel mogelijk berichten te versturen.
+              <br />
+              Maar om de juiste gesprekken te starten.
             </p>
             <a href="#" className="inline-flex items-center gap-2 text-accent hover:text-accent-hover text-body-md mt-6 transition-colors group">
               Bekijk mijn volledige werkwijze
@@ -143,7 +151,7 @@ export default function ProductSuite() {
           </div>
         </div>
 
-        {/* Horizontal timeline */}
+        {/* Activity cards */}
         <div className="timeline-track relative">
           {/* Line */}
           <div
@@ -151,9 +159,9 @@ export default function ProductSuite() {
             style={{ top: '28px', height: '1px', backgroundColor: 'rgba(27,27,27,0.12)' }}
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-0">
-            {steps.map((step) => (
-              <div key={step.label} className="timeline-step opacity-0 relative lg:pr-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0">
+            {activities.map((activity) => (
+              <div key={activity.title} className="timeline-step opacity-0 relative lg:pr-10">
                 {/* Dot */}
                 <div className="hidden lg:flex items-center justify-start mb-8">
                   <div
@@ -172,38 +180,38 @@ export default function ProductSuite() {
                   className="uppercase"
                   style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: '#8C6239' }}
                 >
-                  {step.label}
+                  {activity.label}
                 </p>
 
                 <h3
                   className="text-text-primary"
                   style={{ fontSize: '18px', fontWeight: 700, lineHeight: '1.3', marginTop: '12px' }}
                 >
-                  {step.title}
+                  {activity.title}
                 </h3>
 
                 <p
-                  className="text-text-secondary"
+                  className="text-text-secondary whitespace-pre-line"
                   style={{ fontSize: '15px', lineHeight: '1.7', marginTop: '12px' }}
                 >
-                  {step.body}
+                  {activity.body}
                 </p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Sticky notes */}
+        {/* Bottom cards */}
         <div className="sticky-grid grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10 lg:gap-14" style={{ marginTop: 'clamp(60px, 10vw, 120px)' }}>
-          {stickies.map((sticky) => (
+          {cards.map((card) => (
             <div
-              key={sticky.label}
+              key={card.label}
               className="sticky-note opacity-0"
               style={{
                 backgroundColor: '#EDE9E2',
                 borderRadius: '6px',
                 padding: 'clamp(28px, 4vw, 40px) clamp(24px, 3.5vw, 36px)',
-                transform: `rotate(${sticky.rotate})`,
+                transform: `rotate(${card.rotate})`,
                 boxShadow: '0 2px 12px rgba(27,27,27,0.06), 0 1px 3px rgba(27,27,27,0.04)',
               }}
             >
@@ -211,16 +219,16 @@ export default function ProductSuite() {
                 className="uppercase"
                 style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.18em', color: '#8C6239', marginBottom: '16px' }}
               >
-                {sticky.label}
+                {card.label}
               </p>
               <h4
                 className="text-text-primary"
                 style={{ fontSize: '17px', fontWeight: 700, lineHeight: '1.4' }}
               >
-                {sticky.title}
+                {card.title}
               </h4>
               <div style={{ marginTop: '16px' }}>
-                {sticky.lines.map((line, j) => (
+                {card.lines.map((line, j) => (
                   <p
                     key={j}
                     className="text-text-secondary"

@@ -89,7 +89,13 @@ export default function Hero() {
           </div>
 
           <p className="hero-sub opacity-0 text-body-md leading-[1.6] text-text-secondary max-w-[540px] mt-6 sm:mt-8">
-            Ik ga voor jullie op zoek naar nieuwe klanten. Ik onderzoek bedrijven, stel mezelf voor, houd contact en zorg ervoor dat er uiteindelijk een afspraak in jullie agenda staat. Terwijl jullie gewoon doen waar jullie goed in zijn.
+            Ik ga voor jullie op zoek naar nieuwe klanten.
+            <br /><br />
+            Maar voordat ik mezelf namens jullie voorstel, wil ik eerst begrijpen wie jullie zijn.
+            <br /><br />
+            Ik leer jullie bedrijf kennen, neem jullie tone of voice over en bouw relaties op via e-mail, LinkedIn, Instagram of WhatsApp.
+            <br /><br />
+            Terwijl jullie gewoon doen waar jullie goed in zijn.
           </p>
 
           <div className="hero-cta opacity-0 mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 w-full sm:w-auto">

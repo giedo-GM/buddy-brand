@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
@@ -9,97 +9,119 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const tabs = [
-  {
-    label: 'Prospectie',
-    title: 'Ik vind de juiste bedrijven',
-    body: 'Ik ben altijd op zoek naar bedrijven waar ik denk dat jullie echt iets kunnen betekenen. Zie ik een mooie kans? Dan ga ik aan het werk.',
-  },
-  {
-    label: 'Onderzoek',
-    title: 'Ik doe mijn huiswerk',
-    body: 'Ik ben nogal nieuwsgierig. Dus voordat ik iemand een bericht stuur zoek ik eerst alles uit wat ik kan vinden. Dat werkt een stuk beter.',
-  },
-  {
-    label: 'Outreach',
-    title: 'Ik stuur geen massamails',
-    body: 'Ik schrijf nooit twee keer dezelfde mail. Dat zou ik zelf ook irritant vinden. Iedere introductie is gebaseerd op mijn onderzoek én jullie ervaring.',
-  },
-  {
-    label: 'Opvolging',
-    title: 'Ik geef niet op',
-    body: 'Na een aantal maanden ga ik nog eens kijken of er nu wel een behoefte is. Gewoon uit interesse. Niet pushen. Soms is de timing simpelweg anders.',
-  },
+const prompts = [
+  { question: 'Zie je een interessant bedrijf?', cta: 'APP ME DE WEBSITE.' },
+  { question: 'Twijfel je over een prospect?', cta: 'APP ME.' },
+  { question: 'Benieuwd hoe het met een lead staat?', cta: 'APP ME.' },
+  { question: 'Wil je weten waar ik vandaag mee bezig ben?', cta: 'APP ME.' },
+  { question: 'Wil je dat ik contact opneem met een klant?', cta: 'APP ME.' },
 ]
 
 export default function UseCaseTabs() {
-  const [active, setActive] = useState(0)
-  const contentRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.usecase-heading', { y: 40, opacity: 0 }, {
+      gsap.fromTo('.appme-heading', { y: 24, opacity: 0 }, {
         y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
+      })
+      gsap.fromTo('.appme-prompt', { y: 14, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: 'power3.out',
+        scrollTrigger: { trigger: '.appme-list', start: 'top 85%' },
+      })
+      gsap.fromTo('.appme-buddy', { opacity: 0, scale: 0.96 }, {
+        opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%' },
+      })
+      gsap.fromTo('.appme-closing', { y: 12, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.5, ease: 'power3.out',
+        scrollTrigger: { trigger: '.appme-closing', start: 'top 92%' },
       })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
 
-  useEffect(() => {
-    if (contentRef.current) {
-      gsap.fromTo(contentRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' })
-    }
-  }, [active])
-
   return (
     <section
       ref={sectionRef}
       className="px-5 sm:px-6 lg:px-16 xl:px-24"
-      style={{ paddingTop: 'clamp(80px, 12vw, 160px)', paddingBottom: 'clamp(80px, 12vw, 160px)' }}
+      style={{ paddingTop: 'clamp(60px, 8vw, 120px)', paddingBottom: 'clamp(60px, 8vw, 120px)' }}
     >
       <div className="max-w-[1500px] mx-auto">
-        <h2 className="usecase-heading opacity-0 text-display-lg font-bold text-text-primary mb-12">
-          Wat ik voor jullie doe
-        </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
 
-        <div className="flex gap-1 sm:gap-2 border-b border-border overflow-x-auto max-w-full lg:max-w-[55%] -mx-5 px-5 sm:mx-0 sm:px-0" style={{ marginBottom: 'clamp(24px, 4vw, 40px)' }}>
-          {tabs.map((tab, i) => (
-            <button
-              key={tab.label}
-              onClick={() => setActive(i)}
-              className={`px-3 sm:px-6 py-3 sm:py-4 text-body-sm font-medium whitespace-nowrap transition-colors duration-200 border-b-2 ${
-                active === i
-                  ? 'text-text-primary border-accent'
-                  : 'text-text-secondary border-transparent hover:text-text-primary'
-              }`}
+          {/* Left — Copy */}
+          <div style={{ maxWidth: '560px', paddingLeft: 'clamp(20px, 4vw, 80px)' }}>
+            {/* Headline */}
+            <h2
+              className="appme-heading opacity-0 text-text-primary font-bold uppercase"
+              style={{
+                fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)',
+                lineHeight: '1.08',
+                letterSpacing: '0.06em',
+              }}
             >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+              Ik ben altijd
+              <br />
+              bereikbaar.
+            </h2>
 
-        <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: 'clamp(32px, 5vw, 56px)' }}>
-          {/* Left — Text */}
-          <div className="max-w-[650px] lg:pt-4">
-            <h3
-              className="text-text-primary font-bold"
-              style={{ fontSize: 'clamp(1.75rem, 3vw, 2.5rem)', lineHeight: '1.15', letterSpacing: '-0.02em' }}
-            >
-              {tabs[active].title}
-            </h3>
-            <p
-              className="text-text-secondary"
-              style={{ fontSize: '17px', lineHeight: '1.8', marginTop: '32px' }}
-            >
-              {tabs[active].body}
-            </p>
+            {/* APP ME prompts */}
+            <div className="appme-list" style={{ marginTop: 'clamp(28px, 3.5vw, 44px)' }}>
+              <div className="flex flex-col" style={{ gap: 'clamp(16px, 2vw, 24px)' }}>
+                {prompts.map((prompt, i) => (
+                  <div key={i} className="appme-prompt opacity-0">
+                    <p
+                      className="text-text-secondary"
+                      style={{ fontSize: '13px', lineHeight: '1.5' }}
+                    >
+                      {prompt.question}
+                    </p>
+                    <p
+                      className="text-text-primary font-bold uppercase"
+                      style={{
+                        fontSize: 'clamp(1.1rem, 2vw, 1.6rem)',
+                        lineHeight: '1.15',
+                        letterSpacing: '0.04em',
+                        marginTop: '2px',
+                      }}
+                    >
+                      {prompt.cta}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Closing */}
+            <div className="appme-closing opacity-0" style={{ marginTop: 'clamp(28px, 3.5vw, 44px)' }}>
+              <p
+                className="text-text-secondary"
+                style={{
+                  fontSize: '13px',
+                  lineHeight: '1.8',
+                  maxWidth: '360px',
+                }}
+              >
+                Ik werk gewoon mee.
+                <br />
+                Ik houd jullie CRM bij.
+                <br />
+                Ik volg leads op.
+                <br />
+                Ik plan afspraken.
+                <br /><br />
+                En als jullie iets nodig hebben...
+                <br />
+                stuur je me gewoon een appje.
+              </p>
+            </div>
           </div>
 
-          {/* Right — Buddy */}
-          <div className="flex justify-center lg:justify-end lg:-mt-28">
-            <div className="relative w-full max-w-[520px] aspect-[600/744]">
+          {/* Right — Buddy desktop */}
+          <div className="appme-buddy opacity-0 hidden lg:flex items-center justify-center" style={{ width: 'clamp(360px, 30vw, 480px)' }}>
+            <div className="relative w-full aspect-[600/744]">
               <Image
                 src="/images/Buddy laptop.png"
                 alt="Buddy werkt op zijn laptop"
@@ -107,6 +129,18 @@ export default function UseCaseTabs() {
                 className="object-contain"
               />
             </div>
+          </div>
+        </div>
+
+        {/* Buddy — mobile */}
+        <div className="appme-buddy opacity-0 flex justify-center lg:hidden mt-8">
+          <div className="relative w-full max-w-[280px] aspect-[600/744]">
+            <Image
+              src="/images/Buddy laptop.png"
+              alt="Buddy werkt op zijn laptop"
+              fill
+              className="object-contain"
+            />
           </div>
         </div>
       </div>

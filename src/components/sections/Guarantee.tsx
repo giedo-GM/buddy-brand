@@ -33,7 +33,7 @@ export default function Guarantee() {
     <section
       ref={sectionRef}
       className="bg-bg-primary"
-      style={{ paddingTop: 'clamp(80px, 14vw, 200px)', paddingBottom: 'clamp(80px, 14vw, 200px)' }}
+      style={{ paddingTop: 'clamp(60px, 10vw, 140px)', paddingBottom: 'clamp(60px, 10vw, 140px)' }}
     >
       <div className="max-w-[1500px] mx-auto px-5 sm:px-6 lg:px-16 xl:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-[11fr_9fr] items-center gap-12 lg:gap-20">
@@ -44,33 +44,30 @@ export default function Guarantee() {
 
             <h2
               className="text-text-primary"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 700, lineHeight: '1.15', letterSpacing: '-0.025em', marginTop: '32px' }}
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 700, lineHeight: '1.15', letterSpacing: '-0.025em', marginTop: '24px' }}
             >
               Ik geloof niet in mooie beloftes.
               <br />
               Ik geloof in resultaten.
             </h2>
 
-            <div style={{ marginTop: '48px' }}>
+            <div style={{ marginTop: '32px' }}>
               <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9' }}>
                 Voordat ik ergens begin, kijk ik eerst of ik echt kansen zie.
               </p>
-              <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '16px' }}>
+              <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '12px' }}>
                 Pas als ik denk dat ik jullie kan helpen, ga ik voor jullie werken.
               </p>
-              <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '16px' }}>
-                Daarom durf ik ook een echte garantie te geven.
-              </p>
-              <p className="text-text-primary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '16px', fontWeight: 600 }}>
-                Geef me 60 dagen.
+              <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '12px' }}>
+                Daarom durf ik een echte garantie te geven.
               </p>
             </div>
 
             {/* Editorial quote — the guarantee */}
             <div
               style={{
-                marginTop: '48px',
-                marginBottom: '48px',
+                marginTop: '32px',
+                marginBottom: '32px',
                 paddingLeft: '28px',
                 borderLeft: '3px solid #8C6239',
               }}
@@ -79,20 +76,22 @@ export default function Guarantee() {
                 className="text-text-primary"
                 style={{ fontSize: 'clamp(1.25rem, 2vw, 1.5rem)', fontWeight: 600, lineHeight: '1.5' }}
               >
-                Minimaal 3 kwalitatieve afspraken in 60 dagen.
+                Geef me 60 dagen.
                 <br />
-                Anders krijg je je volledige investering terug.
+                Minimaal 3 kwalitatieve afspraken.
+                <br />
+                Anders krijgen jullie de volledige investering terug.
               </p>
             </div>
 
             <div>
               <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9' }}>
-                Boek ik in die periode niet minimaal <strong className="text-text-primary font-semibold">3 kwalitatieve afspraken</strong> met bedrijven die écht bij jullie passen?
+                Lukt het mij niet om binnen 60 dagen minimaal drie kwalitatieve afspraken te plannen met bedrijven die &#233;cht bij jullie passen?
               </p>
-              <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '16px' }}>
-                Dan krijgen jullie gewoon je volledige investering terug.
+              <p className="text-text-secondary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '12px' }}>
+                Dan krijgen jullie gewoon de volledige investering terug.
               </p>
-              <p className="text-text-primary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '32px', fontWeight: 500 }}>
+              <p className="text-text-primary" style={{ fontSize: '18px', lineHeight: '1.9', marginTop: '24px', fontWeight: 500 }}>
                 Geen kleine lettertjes.
                 <br />
                 Geen discussie.
