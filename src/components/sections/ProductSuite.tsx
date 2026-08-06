@@ -4,35 +4,11 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import Label from '@/components/ui/Label'
-import ArrowIcon from '@/components/ui/ArrowIcon'
+import { useCalendly } from '@/components/ui/CalendlyProvider'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
-
-const activities = [
-  {
-    label: 'DAGELIJKS',
-    title: 'Ik onderzoek bedrijven.',
-    body: 'Iedere dag verdiep ik me in tientallen bedrijven.\n\nIk lees websites.\nIk bekijk LinkedIn.\nIk volg nieuws.\nIk ontdek groeisignalen.\n\nIk probeer te begrijpen waar jullie écht waarde kunnen toevoegen.',
-  },
-  {
-    label: 'DAGELIJKS',
-    title: 'Ik herken kansen.',
-    body: 'Niet ieder bedrijf is interessant.\n\nIk zoek naar signalen.\nNieuwe funding.\nNieuwe vacatures.\nEen productlancering.\nEen groeifase.\n\nOf een uitdaging waarbij jullie ervaring direct van waarde kan zijn.',
-  },
-  {
-    label: 'DAGELIJKS',
-    title: 'Ik start gesprekken.',
-    body: 'Soms via e-mail.\nSoms via LinkedIn.\nSoms via Instagram.\nSoms via WhatsApp.\n\nIk kies het kanaal dat het beste past.\n\nEn ik communiceer zoals jullie dat zelf zouden doen.',
-  },
-  {
-    label: 'DOORLOPEND',
-    title: 'Ik bouw relaties.',
-    body: 'Niet iedereen heeft vandaag tijd.\n\nDus blijf ik rustig in contact.\nIk luister.\nIk denk mee.\nIk volg op.\n\nNet zolang totdat het juiste moment daar is.',
-  },
-]
 
 const cards = [
   {
@@ -71,6 +47,7 @@ const cards = [
 
 export default function ProductSuite() {
   const sectionRef = useRef<HTMLElement>(null)
+  const { open: openCalendly } = useCalendly()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -78,9 +55,9 @@ export default function ProductSuite() {
         opacity: 1, scale: 1, duration: 1, ease: 'power3.out',
         scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' },
       })
-      gsap.fromTo('.timeline-step', { y: 30, opacity: 0 }, {
-        y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: '.timeline-track', start: 'top 80%' },
+      gsap.fromTo('.need-block', { y: 30, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out',
+        scrollTrigger: { trigger: '.need-block', start: 'top 80%' },
       })
       gsap.fromTo('.sticky-note', { y: 40, opacity: 0 }, {
         y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
@@ -102,41 +79,56 @@ export default function ProductSuite() {
         {/* Intro — text left, Buddy right */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center" style={{ marginBottom: 'clamp(60px, 10vw, 120px)' }}>
           <div>
-            <Label>HOE IK WERK</Label>
             <h2
-              className="text-text-primary font-bold mt-5 max-w-[500px]"
-              style={{ fontSize: 'clamp(2.25rem, 4.5vw, 3.5rem)', lineHeight: '1.05', letterSpacing: '-0.025em' }}
+              className="text-text-primary"
+              style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 700, lineHeight: 1.25, letterSpacing: '-0.02em', maxWidth: 520 }}
             >
-              Zo ziet mijn
+              Multichannel outreach met de juiste invalshoek voor elke prospect,
               <br />
-              werkdag eruit.
+              <span className="text-text-secondary" style={{ fontWeight: 400 }}>wat kost jou dat maandelijks?</span>
             </h2>
-            <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-8">
-              Terwijl jullie werken aan klanten, ben ik de hele dag bezig met het vinden van de volgende.
+
+            <p
+              className="text-text-primary"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, marginTop: 'clamp(32px, 5vw, 48px)', letterSpacing: '-0.02em' }}
+            >
+              Buddy kost &euro;444 per maand.
             </p>
-            <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-4">
-              Ik onderzoek bedrijven.
-              <br />
-              Ik herken commerci&#235;le signalen.
-              <br />
-              Ik start gesprekken.
-              <br />
-              Ik bouw relaties.
+            <p className="text-text-secondary" style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', lineHeight: 1.8, marginTop: 12 }}>
+              Geen vakantie. Geen ziektedagen. Geen opzegtermijn.
             </p>
-            <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-4">
-              En zodra iemand wil kennismaken, zet ik een afspraak in jullie agenda.
-            </p>
-            <p className="text-body-md text-text-secondary leading-relaxed max-w-[520px] mt-4">
-              Iedere dag onderzoek ik tientallen bedrijven.
+
+            <div
+              style={{
+                marginTop: 'clamp(28px, 4vw, 40px)',
+                paddingLeft: 28,
+                borderLeft: '3px solid #8C6239',
+              }}
+            >
+              <p className="text-text-primary" style={{ fontSize: 'clamp(1.1rem, 1.5vw, 1.3rem)', fontWeight: 600, lineHeight: 1.5 }}>
+                En een garantie die geen enkele SDR je geeft:
+                <br />
+                Minimaal 5 gekwalificeerde meetings in 90 dagen.
+                <br />
+                Of je geld terug.
+              </p>
+            </div>
+
+            <p className="text-text-secondary" style={{ fontSize: 'clamp(15px, 1.2vw, 18px)', lineHeight: 1.8, marginTop: 'clamp(28px, 4vw, 40px)' }}>
+              Ik vervang niemand.
               <br />
-              Niet om zoveel mogelijk berichten te versturen.
+              Ik zorg dat jullie salesteam meer deals sluit.
               <br />
-              Maar om de juiste gesprekken te starten.
+              Terwijl ik de afspraken boek.
             </p>
-            <a href="#" className="inline-flex items-center gap-2 text-accent hover:text-accent-hover text-body-md mt-6 transition-colors group">
-              Bekijk mijn volledige werkwijze
-              <ArrowIcon className="group-hover:translate-x-1 transition-transform" />
-            </a>
+
+            <button
+              onClick={openCalendly}
+              className="bg-text-primary text-white hover:bg-[#333] px-8 py-3.5 text-body-sm font-medium transition-all duration-200 rounded-button inline-flex items-center gap-2 min-h-[48px]"
+              style={{ marginTop: 'clamp(32px, 5vw, 48px)' }}
+            >
+              Maak kennis met Buddy &rarr;
+            </button>
           </div>
 
           <div className="ps-buddy opacity-0 flex justify-center lg:justify-end">
@@ -151,54 +143,24 @@ export default function ProductSuite() {
           </div>
         </div>
 
-        {/* Activity cards */}
-        <div className="timeline-track relative">
-          {/* Line */}
-          <div
-            className="hidden lg:block absolute left-0 right-0"
-            style={{ top: '28px', height: '1px', backgroundColor: 'rgba(27,27,27,0.12)' }}
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0">
-            {activities.map((activity) => (
-              <div key={activity.title} className="timeline-step opacity-0 relative lg:pr-10">
-                {/* Dot */}
-                <div className="hidden lg:flex items-center justify-start mb-8">
-                  <div
-                    style={{
-                      width: '14px',
-                      height: '14px',
-                      borderRadius: '50%',
-                      backgroundColor: '#8C6239',
-                      border: '3px solid #F2EDE6',
-                      boxShadow: '0 0 0 1px rgba(140,98,57,0.3)',
-                    }}
-                  />
-                </div>
-
-                <p
-                  className="uppercase"
-                  style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: '#8C6239' }}
-                >
-                  {activity.label}
-                </p>
-
-                <h3
-                  className="text-text-primary"
-                  style={{ fontSize: '18px', fontWeight: 700, lineHeight: '1.3', marginTop: '12px' }}
-                >
-                  {activity.title}
-                </h3>
-
-                <p
-                  className="text-text-secondary whitespace-pre-line"
-                  style={{ fontSize: '15px', lineHeight: '1.7', marginTop: '12px' }}
-                >
-                  {activity.body}
-                </p>
-              </div>
-            ))}
-          </div>
+        {/* Wat ik van jullie nodig heb */}
+        <div className="need-block opacity-0" style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
+          <p
+            className="uppercase"
+            style={{ fontSize: '11px', fontWeight: 600, letterSpacing: '0.15em', color: '#8C6239', marginBottom: 16 }}
+          >
+            WAT IK VAN JULLIE NODIG HEB
+          </p>
+          <p className="text-text-secondary" style={{ fontSize: 'clamp(17px, 1.3vw, 19px)', lineHeight: 2, marginTop: 24 }}>
+            Een duidelijk Ideal Customer Profile.
+            <br />
+            Een goede knowledge base over jullie bedrijf, doelgroep en propositie.
+            <br />
+            En ruimte in jullie agenda voor nieuwe afspraken.
+          </p>
+          <p className="text-text-primary" style={{ fontSize: 'clamp(17px, 1.3vw, 19px)', lineHeight: 2, marginTop: 24, fontWeight: 600 }}>
+            Dat is alles. De rest doe ik.
+          </p>
         </div>
 
         {/* Bottom cards */}

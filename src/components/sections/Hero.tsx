@@ -1,126 +1,212 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import Image from 'next/image'
-import Label from '@/components/ui/Label'
+import { useEffect, useRef } from 'react'
 import { useCalendly } from '@/components/ui/CalendlyProvider'
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const initialized = useRef(false)
   const { open: openCalendly } = useCalendly()
-  const [hovering, setHovering] = useState(false)
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const words = sectionRef.current?.querySelectorAll('.hero-word')
-      if (words) {
-        gsap.fromTo(
-          words,
-          { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.08, duration: 0.8, ease: 'power3.out' }
-        )
-      }
-      gsap.fromTo('.hero-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.6, ease: 'power3.out' })
-      gsap.fromTo('.hero-cta', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.9, ease: 'power3.out' })
-      gsap.fromTo('.hero-buddy', { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 1, delay: 0.3, ease: 'power3.out' })
-    }, sectionRef)
+    if (initialized.current) return
+    initialized.current = true
 
-    return () => ctx.revert()
+    const section = document.getElementById('hero-scroll-section')
+    const video = document.getElementById('hero-video') as HTMLVideoElement | null
+    if (!section || !video) return
+
+    const onReady = () => {
+      const duration = video.duration
+      if (!duration || !isFinite(duration)) return
+
+      const onScroll = () => {
+        const rect = section.getBoundingClientRect()
+        const progress = Math.max(0, Math.min(1, -rect.top / (section.offsetHeight - window.innerHeight)))
+
+        if (video.readyState >= 2) {
+          video.currentTime = progress * duration
+        }
+
+        const introEl = document.getElementById('hero-intro')
+        const outroEl = document.getElementById('hero-outro')
+        const ctaEl = document.getElementById('hero-cta')
+
+        if (introEl) {
+          const introOp = progress <= 0.3 ? 1 : progress <= 0.4 ? 1 - (progress - 0.3) / 0.1 : 0
+          introEl.style.opacity = String(introOp)
+          introEl.style.pointerEvents = introOp < 0.1 ? 'none' : 'auto'
+        }
+
+        if (outroEl) {
+          const outroOp = Math.min(1, progress >= 0.6 ? (progress - 0.6) / 0.1 : 0)
+          outroEl.style.opacity = String(outroOp)
+          outroEl.style.pointerEvents = outroOp < 0.1 ? 'none' : 'auto'
+        }
+
+        if (ctaEl) {
+          const ctaProgress = progress >= 0.7 ? Math.min(1, (progress - 0.7) / 0.1) : 0
+          ctaEl.style.transform = `translateX(${(1 - ctaProgress) * 120}%)`
+          ctaEl.style.opacity = String(ctaProgress)
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true })
+      onScroll()
+    }
+
+    if (video.readyState >= 1 && video.duration && isFinite(video.duration)) {
+      onReady()
+    } else {
+      video.addEventListener('loadedmetadata', onReady, { once: true })
+    }
   }, [])
 
   return (
     <section
-      ref={sectionRef}
-      className="relative min-h-[100dvh] flex items-center px-5 sm:px-6 lg:px-16 xl:px-24"
+      id="hero-scroll-section"
+      style={{ position: 'relative', height: '500vh' }}
     >
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center py-24 sm:py-32 lg:py-0">
-        {/* Left — Buddy */}
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          width: '100%',
+          height: '100vh',
+          overflow: 'hidden',
+          backgroundColor: '#000',
+        }}
+      >
+        <video
+          id="hero-video"
+          src="/hero.mp4"
+          muted
+          playsInline
+          preload="auto"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+          }}
+        />
+
         <div
-          className="hero-buddy opacity-0 flex justify-center lg:justify-end relative order-first lg:order-none"
-          onMouseEnter={() => setHovering(true)}
-          onMouseLeave={() => setHovering(false)}
+          id="hero-intro"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            textAlign: 'center',
+            padding: '0 24px 12vh',
+          }}
         >
-          <div className="relative w-full max-w-[640px] aspect-[640/850]">
-            <Image
-              src="/images/buddy casual.png"
-              alt="Buddy — jullie digitale commerciële collega"
-              fill
-              className="object-contain transition-opacity duration-200"
-              style={{ opacity: hovering ? 0 : 1 }}
-              priority
-            />
-            <Image
-              src="/images/buddy hand.png"
-              alt="Buddy zwaait"
-              fill
-              className="object-contain transition-opacity duration-200"
-              style={{ opacity: hovering ? 1 : 0 }}
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Right — Content */}
-        <div className="flex flex-col items-start">
-          <div className="mb-6">
-            <Label>JULLIE NIEUWE DIGITALE COMMERCI&#203;LE COLLEGA</Label>
-          </div>
-
-          {/* Speech bubble */}
-          <div className="relative bg-text-primary rounded-[24px] px-8 py-8 max-w-[520px]">
-            <div
-              className="absolute w-5 h-5 bg-text-primary rotate-45 rounded-bl-[4px]"
-              style={{ left: '-10px', top: '40px' }}
-            />
-            <h1 className="text-[clamp(1.75rem,3.5vw,2.5rem)] leading-[1.1] tracking-[-0.02em] text-white relative z-10 font-extrabold">
-              {['Hoi,', 'ik', 'ben', 'Buddy.'].map((word, i) => (
-                <span key={i} className="hero-word inline-block mr-[0.3em] opacity-0">
-                  {word}
-                </span>
-              ))}
-              <br />
-              {['Ik', 'kom', 'graag', 'bij', 'jullie', 'werken.'].map((word, i) => (
-                <span key={i + 4} className="hero-word inline-block mr-[0.3em] opacity-0">
-                  {word}
-                </span>
-              ))}
-            </h1>
-          </div>
-
-          <p className="hero-sub opacity-0 text-body-md leading-[1.6] text-text-secondary max-w-[540px] mt-6 sm:mt-8">
-            Ik ga voor jullie op zoek naar nieuwe klanten.
-            <br /><br />
-            Maar voordat ik mezelf namens jullie voorstel, wil ik eerst begrijpen wie jullie zijn.
-            <br /><br />
-            Ik leer jullie bedrijf kennen, neem jullie tone of voice over en bouw relaties op via e-mail, LinkedIn, Instagram of WhatsApp.
-            <br /><br />
-            Terwijl jullie gewoon doen waar jullie goed in zijn.
+          <h1
+            style={{
+              color: '#fff',
+              fontSize: 'clamp(3rem, 8vw, 7rem)',
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              lineHeight: 1,
+              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
+              marginBottom: '0.3em',
+            }}
+          >
+            BUDDY
+          </h1>
+          <p
+            style={{
+              color: '#fff',
+              fontSize: 'clamp(1.4rem, 3vw, 2.2rem)',
+              fontWeight: 400,
+              textShadow: '0 1px 10px rgba(0,0,0,0.5)',
+              marginBottom: '0.8em',
+            }}
+          >
+            Jullie digitale collega.
           </p>
-
-          <div className="hero-cta opacity-0 mt-8 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 w-full sm:w-auto">
-            <button
-              onClick={openCalendly}
-              className="bg-text-primary text-white hover:bg-[#333] px-7 py-4 text-base font-medium transition-all duration-200 rounded-button inline-flex items-center justify-center gap-2 min-h-[48px]"
-            >
-              Neem mij aan
-            </button>
-            <button
-              onClick={openCalendly}
-              className="border border-accent text-accent hover:bg-accent hover:text-white px-7 py-4 text-base font-medium transition-all duration-200 rounded-button inline-flex items-center justify-center gap-2 min-h-[48px]"
-            >
-              Spreek mij over hoe ik werk
-            </button>
-          </div>
+          <p
+            style={{
+              color: 'rgba(255,255,255,0.75)',
+              fontSize: 'clamp(1.05rem, 2vw, 1.4rem)',
+              fontStyle: 'italic',
+              textShadow: '0 1px 8px rgba(0,0,0,0.4)',
+              maxWidth: 500,
+            }}
+          >
+            Iedereen weet dat ze moeten prospecten. Niemand doet het.
+          </p>
         </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-label text-accent uppercase tracking-widest animate-pulse">
-          scroll verder
-        </span>
-        <div className="w-px h-8 bg-gradient-to-b from-accent/40 to-transparent" />
+        <div
+          id="hero-outro"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            textAlign: 'center',
+            padding: '0 24px 6vh',
+            opacity: 0,
+            pointerEvents: 'none',
+          }}
+        >
+          <p
+            style={{
+              color: '#1B1B1B',
+              fontSize: 'clamp(1.4rem, 3vw, 2rem)',
+              fontWeight: 600,
+              marginBottom: '0.5em',
+            }}
+          >
+            Jullie focussen op vandaag.
+          </p>
+          <h2
+            style={{
+              color: '#fff',
+              fontSize: 'clamp(2rem, 5.5vw, 4rem)',
+              fontWeight: 800,
+              lineHeight: 1.15,
+              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
+              marginBottom: '1em',
+              maxWidth: 700,
+            }}
+          >
+            Ik werk alvast aan morgen.
+          </h2>
+          <button
+            id="hero-cta"
+            onClick={openCalendly}
+            style={{
+              color: '#fff',
+              fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)',
+              fontWeight: 600,
+              padding: '14px 36px',
+              border: '2px solid #fff',
+              borderRadius: 6,
+              backgroundColor: 'transparent',
+              letterSpacing: '0.04em',
+              transition: 'background-color 0.25s ease, color 0.25s ease',
+              cursor: 'pointer',
+              transform: 'translateX(120%)',
+              opacity: 0,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#fff'
+              e.currentTarget.style.color = '#1B1B1B'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent'
+              e.currentTarget.style.color = '#fff'
+            }}
+          >
+            Maak kennis met Buddy
+          </button>
+        </div>
       </div>
     </section>
   )

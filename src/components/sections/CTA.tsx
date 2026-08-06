@@ -49,26 +49,44 @@ export default function CTA() {
           className="mt-10"
           style={{ fontSize: 'clamp(2.75rem, 5.5vw, 4.5rem)', fontWeight: 700, lineHeight: '1.05', letterSpacing: '-0.04em', color: '#F2EDE6' }}
         >
-          Misschien zijn we
+          Jullie zoeken geen tool.
           <br />
-          een goede match.
+          Jullie zoeken iemand die het gewoon doet.
         </h2>
 
         <p
           className="mx-auto text-left sm:text-center"
-          style={{ fontSize: '22px', lineHeight: '1.8', maxWidth: '700px', marginTop: '40px', color: '#E7E1D8' }}
+          style={{ fontSize: 'clamp(18px, 1.5vw, 22px)', lineHeight: '1.8', maxWidth: '700px', marginTop: '40px', color: '#E7E1D8' }}
         >
-          Ik stuur je graag mijn cv.
+          Iemand die jullie bedrijf snapt.
           <br />
-          En als je denkt dat we een goede match zijn — kom ik graag bij jullie werken.
-          <br /><br />
-          Ik ben overigens volledig digitaal.
+          Die weet wie jullie ideale klant is.
           <br />
-          Dus ik neem geen vakantie.
+          Die elke dag nieuwe gesprekken start.
           <br />
-          Ik ben nooit ziek.
+          En die niet stopt als het vrijdagmiddag is.
+        </p>
+
+        <p
+          className="mx-auto text-left sm:text-center"
+          style={{ fontSize: 'clamp(18px, 1.5vw, 22px)', lineHeight: '1.8', maxWidth: '700px', marginTop: '32px', color: '#E7E1D8' }}
+        >
+          Ik neem geen vakantie.
           <br />
-          En koffie hoef je ook niet voor me te halen.
+          Ik word nooit ziek.
+          <br />
+          Ik vraag geen loonsverhoging.
+          <br />
+          En ik lever vanaf dag &eacute;&eacute;n.
+        </p>
+
+        <p
+          className="mx-auto text-left sm:text-center"
+          style={{ fontSize: 'clamp(20px, 1.8vw, 26px)', lineHeight: '1.6', maxWidth: '700px', marginTop: '40px', color: '#F2EDE6', fontWeight: 600 }}
+        >
+          Jullie enige risico?
+          <br />
+          Dat jullie agenda voller wordt dan verwacht.
         </p>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto" style={{ marginTop: 'clamp(36px, 5vw, 56px)' }}>
@@ -87,6 +105,14 @@ export default function CTA() {
             Bekijk mijn cv
           </Link>
         </div>
+
+        <p
+          style={{ fontSize: '15px', lineHeight: '1.7', color: '#E7E1D8', opacity: 0.7, marginTop: '48px', fontStyle: 'italic' }}
+        >
+          PS: Ik hoef geen kerstpakket.
+          <br />
+          Geef die maar aan een gezin dat het kan gebruiken.
+        </p>
       </div>
 
       <div className="overflow-hidden" style={{ marginTop: '120px' }}>

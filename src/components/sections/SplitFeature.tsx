@@ -3,24 +3,79 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Image from 'next/image'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
+
+const steps = [
+  {
+    label: 'DAGELIJKS',
+    title: 'Ik onderzoek bedrijven.',
+    lines: [
+      'Iedere dag verdiep ik me in tientallen bedrijven.',
+      '',
+      'Ik lees websites.',
+      'Ik bekijk LinkedIn.',
+      'Ik volg nieuws.',
+      'Ik ontdek groeisignalen.',
+      '',
+      'Ik probeer te begrijpen waar jullie écht waarde kunnen toevoegen.',
+    ],
+  },
+  {
+    label: 'DAGELIJKS',
+    title: 'Ik herken kansen.',
+    lines: [
+      'Niet ieder bedrijf is interessant.',
+      '',
+      'Ik zoek naar signalen.',
+      'Nieuwe funding.',
+      'Nieuwe vacatures.',
+      'Een productlancering.',
+      'Een groeifase.',
+      '',
+      'Of een uitdaging waarbij jullie ervaring direct van waarde kan zijn.',
+    ],
+  },
+  {
+    label: 'DAGELIJKS',
+    title: 'Ik start gesprekken.',
+    lines: [
+      'Soms via e-mail.',
+      'Soms via LinkedIn.',
+      'Soms via Instagram.',
+      'Soms via WhatsApp.',
+      '',
+      'Ik kies het kanaal dat het beste past.',
+      '',
+      'En ik communiceer zoals jullie dat zelf zouden doen.',
+    ],
+  },
+  {
+    label: 'DOORLOPEND',
+    title: 'Ik bouw relaties.',
+    lines: [
+      'Niet iedereen heeft vandaag tijd.',
+      '',
+      'Dus blijf ik rustig in contact.',
+      'Ik luister.',
+      'Ik denk mee.',
+      'Ik volg op.',
+      '',
+      'Net zolang totdat het juiste moment daar is.',
+    ],
+  },
+]
 
 export default function SplitFeature() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.split-img', { x: -60, opacity: 0 }, {
-        x: 0, opacity: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' },
-      })
-      gsap.fromTo('.split-text', { x: 60, opacity: 0 }, {
-        x: 0, opacity: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 70%' },
+      gsap.fromTo('.timeline-col', { y: 40, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: '.timeline-grid', start: 'top 80%' },
       })
     }, sectionRef)
     return () => ctx.revert()
@@ -34,55 +89,76 @@ export default function SplitFeature() {
     >
       <div className="max-w-[1500px] mx-auto px-5 sm:px-6 lg:px-16 xl:px-24">
 
-        {/* Full-width title */}
-        <h2
-          className="text-text-primary font-bold text-center"
-          style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', lineHeight: '1.15', letterSpacing: '-0.02em', marginBottom: 'clamp(40px, 6vw, 72px)' }}
-        >
-          Ik vervang jullie team niet. Ik versterk het.
-        </h2>
+        <div className="timeline-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+          {steps.map((step, i) => (
+            <div key={i} className="timeline-col opacity-0" style={{ position: 'relative' }}>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-10 lg:gap-20 items-center">
+              {/* Timeline dot + line */}
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 32, position: 'relative', height: 12 }}>
+                <div
+                  style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: '50%',
+                    backgroundColor: '#8C6239',
+                    flexShrink: 0,
+                    zIndex: 1,
+                  }}
+                />
+                {i < steps.length - 1 && (
+                  <div
+                    className="hidden lg:block"
+                    style={{
+                      position: 'absolute',
+                      left: 12,
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      width: 'calc(100%)',
+                      height: 1,
+                      backgroundColor: '#D4CEC5',
+                    }}
+                  />
+                )}
+              </div>
 
-          {/* Left — Team image with soft right-edge fade */}
-          <div className="split-img opacity-0">
-            <div
-              className="relative overflow-hidden lg:-ml-[5%]"
-              style={{ borderRadius: '10px' }}
-            >
-              <Image
-                src="/images/Buddyteam.png"
-                alt="Buddy samen met het team"
-                width={900}
-                height={640}
-                className="w-full h-auto object-cover"
-              />
-              {/* Soft fade on right edge */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to right, transparent 60%, #F2EDE6)',
-                }}
-              />
+              {/* Content */}
+              <div style={{ paddingRight: 'clamp(16px, 3vw, 40px)' }}>
+                <p
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 600,
+                    letterSpacing: '0.15em',
+                    color: '#8C6239',
+                    textTransform: 'uppercase',
+                    marginBottom: 12,
+                  }}
+                >
+                  {step.label}
+                </p>
+                <h3
+                  className="text-text-primary"
+                  style={{ fontSize: 'clamp(1.1rem, 1.5vw, 1.25rem)', fontWeight: 700, lineHeight: 1.3, marginBottom: 16 }}
+                >
+                  {step.title}
+                </h3>
+                <div>
+                  {step.lines.map((line, j) =>
+                    line === '' ? (
+                      <div key={j} style={{ height: 12 }} />
+                    ) : (
+                      <p
+                        key={j}
+                        className="text-text-secondary"
+                        style={{ fontSize: 'clamp(14px, 1.1vw, 16px)', lineHeight: 1.7 }}
+                      >
+                        {line}
+                      </p>
+                    )
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-
-          {/* Right — Text */}
-          <div className="split-text opacity-0 flex flex-col justify-center max-w-[480px]">
-            <p className="text-text-secondary" style={{ fontSize: 'clamp(17px, 1.3vw, 19px)', lineHeight: '2' }}>
-              Ik onderzoek bedrijven.
-              <br />
-              Ik start gesprekken.
-              <br />
-              Ik volg leads op.
-            </p>
-            <p className="text-text-secondary" style={{ fontSize: 'clamp(17px, 1.3vw, 19px)', lineHeight: '2', marginTop: 'clamp(20px, 2.5vw, 32px)' }}>
-              En zodra iemand wil kennismaken, staat de afspraak in jullie agenda.
-            </p>
-            <p className="text-text-primary font-medium" style={{ fontSize: 'clamp(17px, 1.3vw, 19px)', lineHeight: '2', marginTop: 'clamp(32px, 4vw, 48px)' }}>
-              Maar ik ben er ook gewoon voor jullie.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </section>
