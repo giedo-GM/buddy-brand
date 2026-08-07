@@ -92,7 +92,7 @@ const faqs = [
     question: 'Wat als Buddy geen resultaten haalt?',
     answer: [
       'Daarom werk ik met een garantie.',
-      'Plan ik binnen 60 dagen geen drie kwalitatieve afspraken met bedrijven die echt bij jullie passen?',
+      'Haal ik binnen 90 dagen geen 5 gekwalificeerde meetings met bedrijven die echt bij jullie passen?',
       'Dan krijg je gewoon je volledige investering terug.',
     ],
   },

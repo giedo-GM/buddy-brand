@@ -15,7 +15,7 @@ const monthlyFeatures = [
   'Multichannel outreach (e-mail, LinkedIn, WhatsApp)',
   'Persoonlijke benadering per prospect',
   'Continue optimalisatie en rapportage',
-  'Garantie: minimaal 9 meetings in 90 dagen of geld terug',
+  'Garantie: minimaal 5 gekwalificeerde meetings in 90 dagen of geld terug',
 ]
 
 const onceFeatures = [
@@ -93,7 +93,7 @@ export default function Guarantee() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                Meest gekozen
+                Aanbevolen
               </div>
 
               <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', color: '#8C6239', textTransform: 'uppercase', marginBottom: 16 }}>

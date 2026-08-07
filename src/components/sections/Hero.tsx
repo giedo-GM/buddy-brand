@@ -182,7 +182,7 @@ export default function Hero() {
         >
           <p
             style={{
-              color: '#1B1B1B',
+              color: '#fff',
               fontSize: 'clamp(1.4rem, 3vw, 2rem)',
               fontWeight: 600,
               marginBottom: '0.5em',

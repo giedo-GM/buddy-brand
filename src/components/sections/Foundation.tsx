@@ -45,7 +45,7 @@ const cards = [
   {
     headline: 'Vindt de juiste mensen',
     content: (
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, width: '100%' }}>
+      <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, width: '100%' }}>
         {[
           { init: 'RV', name: 'Ruben Verhoeven', role: 'Directeur', company: 'X digital', email: 'ruben@x-digital.nl' },
           { init: 'LB', name: 'Lisa de Boer', role: 'Marketing Manager', company: 'MMigrations', email: 'lisa@mmigrations.nl' },
@@ -183,6 +183,21 @@ export default function Foundation() {
       ref={sectionRef}
       style={{ backgroundColor: '#8C6239' }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          .stack-card {
+            position: relative !important;
+            top: auto !important;
+          }
+          .stack-card-inner {
+            grid-template-columns: 1fr !important;
+            overflow: hidden;
+          }
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
         <div style={{ position: 'sticky', top: 0, zIndex: 10, textAlign: 'center', padding: 'clamp(50px, 8vw, 80px) 0', backgroundColor: '#8C6239' }}>
           <span style={{ color: '#F2EDE6', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em' }}>

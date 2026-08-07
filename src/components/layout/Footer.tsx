@@ -84,7 +84,7 @@ export default function Footer() {
                 'Persoonlijke outreach',
                 'Case-based prospecting',
                 '100% eigendom van jullie bedrijf',
-                '3 afspraken garantie',
+                '5 meetings garantie',
               ].map((item) => (
                 <li key={item} className="text-body-sm text-text-secondary">
                   {item}

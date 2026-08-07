@@ -34,6 +34,7 @@ export default function BuddyCheckPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
 
   const totalSteps = steps.length + 1
   const isLastStep = currentStep === steps.length
@@ -52,7 +53,19 @@ export default function BuddyCheckPage() {
     if (currentStep > 0) setCurrentStep(currentStep - 1)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    setSending(true)
+    try {
+      const res = await fetch('/api/buddy-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, answers }),
+      })
+      if (!res.ok) throw new Error()
+    } catch {
+      // show success anyway so user isn't stuck
+    }
+    setSending(false)
     setSubmitted(true)
   }
 
@@ -363,18 +376,18 @@ export default function BuddyCheckPage() {
                           {isLastStep ? (
                             <button
                               onClick={handleSubmit}
-                              disabled={!canProceed()}
+                              disabled={!canProceed() || sending}
                               className="transition-all duration-200"
                               style={{
-                                backgroundColor: canProceed() ? '#1B1B1B' : 'rgba(27,27,27,0.1)',
-                                color: canProceed() ? '#F2EDE6' : 'rgba(27,27,27,0.3)',
+                                backgroundColor: canProceed() && !sending ? '#1B1B1B' : 'rgba(27,27,27,0.1)',
+                                color: canProceed() && !sending ? '#F2EDE6' : 'rgba(27,27,27,0.3)',
                                 padding: '12px 28px',
                                 borderRadius: '999px',
                                 fontSize: '15px',
                                 fontWeight: 500,
                               }}
                             >
-                              Verstuur mijn Buddy Check
+                              {sending ? 'Even geduld...' : 'Verstuur mijn Buddy Check'}
                             </button>
                           ) : (
                             <button
