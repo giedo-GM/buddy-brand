@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       .join('')
 
     await resend.emails.send({
-      from: 'Buddy Check <buddy@mybuddy.works>',
+      from: 'Buddy Check <noreply@gmgroup.nl>',
       to: ['giedo@gmgroup.nl'],
       replyTo: email,
       subject: `Buddy Check ingevuld door ${name}`,
