@@ -4,28 +4,26 @@ import { useEffect, useRef } from 'react'
 import { useCalendly } from '@/components/ui/CalendlyProvider'
 
 export default function Hero() {
-  const initialized = useRef(false)
+  const sectionRef = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const { open: openCalendly } = useCalendly()
 
   useEffect(() => {
-    if (initialized.current) return
-    initialized.current = true
-
-    const section = document.getElementById('hero-scroll-section')
-    const video = document.getElementById('hero-video') as HTMLVideoElement | null
+    const section = sectionRef.current
+    const video = videoRef.current
     if (!section || !video) return
 
-    const onReady = () => {
+    let scrollHandler: (() => void) | null = null
+
+    const setup = () => {
       const duration = video.duration
       if (!duration || !isFinite(duration)) return
 
-      const onScroll = () => {
+      scrollHandler = () => {
         const rect = section.getBoundingClientRect()
         const progress = Math.max(0, Math.min(1, -rect.top / (section.offsetHeight - window.innerHeight)))
 
-        if (video.readyState >= 2) {
-          video.currentTime = progress * duration
-        }
+        video.currentTime = progress * duration
 
         const introEl = document.getElementById('hero-intro')
         const outroEl = document.getElementById('hero-outro')
@@ -50,19 +48,43 @@ export default function Hero() {
         }
       }
 
-      window.addEventListener('scroll', onScroll, { passive: true })
-      onScroll()
+      window.addEventListener('scroll', scrollHandler, { passive: true })
+      scrollHandler()
     }
 
-    if (video.readyState >= 1 && video.duration && isFinite(video.duration)) {
-      onReady()
+    const initVideo = () => {
+      const playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          video.pause()
+          video.currentTime = 0
+          setup()
+        }).catch(() => {
+          setup()
+        })
+      } else {
+        video.pause()
+        video.currentTime = 0
+        setup()
+      }
+    }
+
+    if (video.readyState >= 2) {
+      initVideo()
     } else {
-      video.addEventListener('loadedmetadata', onReady, { once: true })
+      video.addEventListener('loadeddata', initVideo, { once: true })
+    }
+
+    return () => {
+      if (scrollHandler) {
+        window.removeEventListener('scroll', scrollHandler)
+      }
     }
   }, [])
 
   return (
     <section
+      ref={sectionRef}
       id="hero-scroll-section"
       style={{ position: 'relative', height: '500vh' }}
     >
@@ -77,6 +99,7 @@ export default function Hero() {
         }}
       >
         <video
+          ref={videoRef}
           id="hero-video"
           src="/hero.mp4"
           muted
