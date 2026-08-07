@@ -193,7 +193,7 @@ export default function Guarantee() {
 
           {/* RIGHT — Buddy hand */}
           <div className="guarantee-buddy opacity-0 flex justify-center">
-            <div className="relative w-full max-w-[500px] aspect-[720/960]">
+            <div className="relative w-full max-w-[500px] aspect-[720/960]" style={{ maxHeight: '50vh' }}>
               <Image
                 src="/images/buddy hand.png"
                 alt="Buddy steekt zijn hand uit"
