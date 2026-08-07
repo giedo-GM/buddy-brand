@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useCalendly } from '@/components/ui/CalendlyProvider'
@@ -11,7 +11,12 @@ export default function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const [src, setSrc] = useState('')
   const { open: openCalendly } = useCalendly()
+
+  useEffect(() => {
+    setSrc(window.innerWidth < 768 ? '/hero-mobile.mp4' : '/hero.mp4')
+  }, [])
 
   useEffect(() => {
     const section = sectionRef.current
@@ -70,14 +75,14 @@ export default function Hero() {
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill())
     }
-  }, [])
+  }, [src])
 
   return (
     <section ref={sectionRef} id="hero-scroll-section" className="relative" style={{ height: '600vh' }}>
       <div className="sticky top-0 h-screen overflow-hidden" style={{ backgroundColor: '#000' }}>
         <video
           ref={videoRef}
-          src="/hero.mp4"
+          src={src}
           preload="auto"
           muted
           playsInline

@@ -35,7 +35,7 @@ export default function CTA() {
     <section
       id="contact"
       className="text-center relative px-5 sm:px-6 lg:px-16 xl:px-24"
-      style={{ backgroundColor: '#8C6239', paddingTop: 'clamp(80px, 14vw, 200px)', paddingBottom: 'clamp(80px, 12vw, 160px)' }}
+      style={{ backgroundColor: '#8C6239', paddingTop: 'clamp(48px, 8vw, 120px)', paddingBottom: 'clamp(48px, 8vw, 100px)' }}
     >
       <div className="max-w-[900px] mx-auto relative">
         <p
@@ -47,7 +47,7 @@ export default function CTA() {
 
         <h2
           className="mt-10"
-          style={{ fontSize: 'clamp(2.75rem, 5.5vw, 4.5rem)', fontWeight: 700, lineHeight: '1.05', letterSpacing: '-0.04em', color: '#F2EDE6' }}
+          style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 700, lineHeight: '1.05', letterSpacing: '-0.04em', color: '#F2EDE6' }}
         >
           Jullie zoeken geen tool.
           <br />

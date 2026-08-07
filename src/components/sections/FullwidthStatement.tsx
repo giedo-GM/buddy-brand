@@ -86,7 +86,7 @@ export default function FullwidthStatement() {
     <section
       ref={sectionRef}
       className="px-5 sm:px-6 lg:px-16 xl:px-24"
-      style={{ paddingTop: 'clamp(80px, 12vw, 140px)', paddingBottom: 'clamp(60px, 8vw, 100px)' }}
+      style={{ paddingTop: 'clamp(48px, 8vw, 100px)', paddingBottom: 'clamp(40px, 6vw, 80px)' }}
     >
       <div className="max-w-[1500px] mx-auto">
 
