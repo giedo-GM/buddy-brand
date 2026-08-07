@@ -1,14 +1,18 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useCalendly } from '@/components/ui/CalendlyProvider'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { open: openCalendly } = useCalendly()
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    const mobile = window.innerWidth < 768
+    setIsMobile(mobile)
+
     const section = sectionRef.current
     const video = videoRef.current
     if (!section || !video) return
@@ -19,9 +23,10 @@ export default function Hero() {
     const attachScroll = () => {
       scrollHandler = () => {
         const rect = section.getBoundingClientRect()
-        const progress = Math.max(0, Math.min(1, -rect.top / (section.offsetHeight - window.innerHeight)))
+        const scrollHeight = mobile ? section.offsetHeight - window.innerHeight : section.offsetHeight - window.innerHeight
+        const progress = Math.max(0, Math.min(1, -rect.top / scrollHeight))
 
-        if (videoDuration > 0 && video.readyState >= 2) {
+        if (!mobile && videoDuration > 0 && video.readyState >= 2) {
           video.currentTime = progress * videoDuration
         }
 
@@ -52,29 +57,35 @@ export default function Hero() {
       scrollHandler()
     }
 
-    const initVideo = () => {
-      videoDuration = video.duration
-      if (!videoDuration || !isFinite(videoDuration)) return
-      const playPromise = video.play()
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
+    if (mobile) {
+      // Mobile: just autoplay the video normally, don't seek on scroll
+      video.loop = true
+      video.play().catch(() => {})
+      attachScroll()
+    } else {
+      // Desktop: scroll-driven video seeking
+      const initVideo = () => {
+        videoDuration = video.duration
+        if (!videoDuration || !isFinite(videoDuration)) return
+        const playPromise = video.play()
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            video.pause()
+            video.currentTime = 0
+          }).catch(() => {})
+        } else {
           video.pause()
           video.currentTime = 0
-        }).catch(() => {})
-      } else {
-        video.pause()
-        video.currentTime = 0
+        }
       }
-    }
 
-    // Always attach scroll handler for text animations
-    attachScroll()
+      attachScroll()
 
-    // Set up video seeking when ready
-    if (video.readyState >= 2) {
-      initVideo()
-    } else {
-      video.addEventListener('loadeddata', initVideo, { once: true })
+      if (video.readyState >= 2) {
+        initVideo()
+      } else {
+        video.addEventListener('loadeddata', initVideo, { once: true })
+      }
     }
 
     return () => {
@@ -88,7 +99,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero-scroll-section"
-      style={{ position: 'relative', height: '500vh' }}
+      style={{ position: 'relative', height: isMobile ? '300vh' : '500vh' }}
     >
       <div
         style={{
@@ -107,6 +118,7 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
+          autoPlay={false}
           style={{
             width: '100%',
             height: '100%',
