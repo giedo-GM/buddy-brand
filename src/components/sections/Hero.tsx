@@ -1,97 +1,114 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useCalendly } from '@/components/ui/CalendlyProvider'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const { open: openCalendly } = useCalendly()
-  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const mobile = window.innerWidth < 768
-    setIsMobile(mobile)
-
     const section = sectionRef.current
     const video = videoRef.current
     if (!section || !video) return
 
-    let scrollHandler: (() => void) | null = null
-    let videoDuration = 0
+    let duration = 0
 
-    const attachScroll = () => {
-      scrollHandler = () => {
-        const rect = section.getBoundingClientRect()
-        const scrollHeight = mobile ? section.offsetHeight - window.innerHeight : section.offsetHeight - window.innerHeight
-        const progress = Math.max(0, Math.min(1, -rect.top / scrollHeight))
+    const init = () => {
+      duration = video.duration
+      if (!duration || !isFinite(duration)) return
 
-        if (!mobile && videoDuration > 0 && video.readyState >= 2) {
-          video.currentTime = progress * videoDuration
+      // Scroll-driven video seeking via GSAP ScrollTrigger
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+        onUpdate: (self) => {
+          video.currentTime = self.progress * duration
+        },
+      })
+
+      // Intro text fade out (0% - 15% scroll)
+      gsap.fromTo('#hero-intro',
+        { opacity: 1 },
+        {
+          opacity: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '15% top',
+            scrub: true,
+          },
         }
+      )
 
-        const introEl = document.getElementById('hero-intro')
-        const outroEl = document.getElementById('hero-outro')
-        const ctaEl = document.getElementById('hero-cta')
-
-        if (introEl) {
-          const introOp = progress <= 0.3 ? 1 : progress <= 0.4 ? 1 - (progress - 0.3) / 0.1 : 0
-          introEl.style.opacity = String(introOp)
-          introEl.style.pointerEvents = introOp < 0.1 ? 'none' : 'auto'
+      // Outro text fade in (60% - 70% scroll)
+      gsap.fromTo('#hero-outro',
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: '60% top',
+            end: '70% top',
+            scrub: true,
+          },
         }
+      )
 
-        if (outroEl) {
-          const outroOp = Math.min(1, progress >= 0.6 ? (progress - 0.6) / 0.1 : 0)
-          outroEl.style.opacity = String(outroOp)
-          outroEl.style.pointerEvents = outroOp < 0.1 ? 'none' : 'auto'
+      // CTA slide in (70% - 80% scroll)
+      gsap.fromTo('#hero-cta',
+        { xPercent: 120, opacity: 0 },
+        {
+          xPercent: 0,
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: '70% top',
+            end: '80% top',
+            scrub: true,
+          },
         }
-
-        if (ctaEl) {
-          const ctaProgress = progress >= 0.7 ? Math.min(1, (progress - 0.7) / 0.1) : 0
-          ctaEl.style.transform = `translateX(${(1 - ctaProgress) * 120}%)`
-          ctaEl.style.opacity = String(ctaProgress)
-        }
-      }
-
-      window.addEventListener('scroll', scrollHandler, { passive: true })
-      scrollHandler()
+      )
     }
 
-    if (mobile) {
-      // Mobile: just autoplay the video normally, don't seek on scroll
-      video.loop = true
-      video.play().catch(() => {})
-      attachScroll()
-    } else {
-      // Desktop: scroll-driven video seeking
-      const initVideo = () => {
-        videoDuration = video.duration
-        if (!videoDuration || !isFinite(videoDuration)) return
-        const playPromise = video.play()
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            video.pause()
-            video.currentTime = 0
-          }).catch(() => {})
-        } else {
+    // Play/pause trick to unlock video seeking on mobile
+    const activate = () => {
+      const playPromise = video.play()
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
           video.pause()
-          video.currentTime = 0
-        }
-      }
-
-      attachScroll()
-
-      if (video.readyState >= 2) {
-        initVideo()
+          init()
+        }).catch(() => {
+          init()
+        })
       } else {
-        video.addEventListener('loadeddata', initVideo, { once: true })
+        video.pause()
+        init()
       }
+    }
+
+    if (video.readyState >= 1) {
+      activate()
+    } else {
+      video.addEventListener('loadedmetadata', activate, { once: true })
     }
 
     return () => {
-      if (scrollHandler) {
-        window.removeEventListener('scroll', scrollHandler)
-      }
+      ScrollTrigger.getAll().forEach(st => {
+        if (st.trigger === section) st.kill()
+      })
     }
   }, [])
 
@@ -99,7 +116,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero-scroll-section"
-      style={{ position: 'relative', height: isMobile ? '300vh' : '500vh' }}
+      style={{ position: 'relative', height: '500vh' }}
     >
       <div
         style={{
@@ -118,7 +135,6 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
-          autoPlay={false}
           style={{
             width: '100%',
             height: '100%',
@@ -229,8 +245,6 @@ export default function Hero() {
               letterSpacing: '0.04em',
               transition: 'background-color 0.25s ease, color 0.25s ease',
               cursor: 'pointer',
-              transform: 'translateX(120%)',
-              opacity: 0,
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = '#fff'
