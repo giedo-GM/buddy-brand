@@ -46,17 +46,17 @@ export default function Guarantee() {
   return (
     <section
       ref={sectionRef}
-      style={{ backgroundColor: '#0a0a0a', paddingTop: 'clamp(40px, 6vw, 100px)', paddingBottom: 'clamp(40px, 6vw, 100px)' }}
+      style={{ backgroundColor: '#0a0a0a', paddingTop: 'clamp(32px, 4vw, 80px)', paddingBottom: 'clamp(32px, 4vw, 80px)' }}
     >
       <div className="max-w-[1500px] mx-auto px-5 sm:px-6 lg:px-16 xl:px-24">
 
         <h2
-          style={{ fontSize: 'clamp(1.5rem, 2.8vw, 2.25rem)', fontWeight: 700, color: '#fff', textAlign: 'center', letterSpacing: '-0.02em', marginBottom: 'clamp(24px, 4vw, 48px)' }}
+          style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, color: '#fff', textAlign: 'center', letterSpacing: '-0.02em', marginBottom: 'clamp(16px, 2.5vw, 36px)' }}
         >
           E&eacute;n collega. Twee manieren om samen te werken.
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-10 items-center">
 
           {/* LEFT — Pricing cards */}
           <div className="pricing-cards grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -193,7 +193,7 @@ export default function Guarantee() {
 
           {/* RIGHT — Buddy hand */}
           <div className="guarantee-buddy opacity-0 flex justify-center">
-            <div className="relative w-full max-w-[720px] aspect-[720/960]">
+            <div className="relative w-full max-w-[500px] aspect-[720/960]">
               <Image
                 src="/images/buddy hand.png"
                 alt="Buddy steekt zijn hand uit"
