@@ -46,17 +46,17 @@ export default function Guarantee() {
   return (
     <section
       ref={sectionRef}
-      style={{ backgroundColor: '#0a0a0a', paddingTop: 'clamp(32px, 4vw, 80px)', paddingBottom: 'clamp(32px, 4vw, 80px)' }}
+      style={{ backgroundColor: '#0a0a0a', paddingTop: 'clamp(60px, 10vw, 140px)', paddingBottom: 'clamp(60px, 10vw, 140px)' }}
     >
       <div className="max-w-[1500px] mx-auto px-5 sm:px-6 lg:px-16 xl:px-24">
 
         <h2
-          style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, color: '#fff', textAlign: 'center', letterSpacing: '-0.02em', marginBottom: 'clamp(16px, 2.5vw, 36px)' }}
+          style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.75rem)', fontWeight: 700, color: '#fff', textAlign: 'center', letterSpacing: '-0.02em', marginBottom: 'clamp(40px, 6vw, 64px)' }}
         >
           E&eacute;n collega. Twee manieren om samen te werken.
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-8 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-12 lg:gap-16 items-center">
 
           {/* LEFT — Pricing cards */}
           <div className="pricing-cards grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -68,11 +68,11 @@ export default function Guarantee() {
                 background: '#1a1a1a',
                 borderRadius: 16,
                 border: '1px solid rgba(140,98,57,0.4)',
-                padding: 'clamp(20px, 2.5vw, 32px)',
+                padding: 'clamp(28px, 3vw, 40px)',
                 display: 'flex',
                 flexDirection: 'column',
                 position: 'relative',
-                transform: 'scale(1.02)',
+                transform: 'scale(1.03)',
                 boxShadow: '0 0 40px rgba(140,98,57,0.12)',
               }}
             >
@@ -96,22 +96,22 @@ export default function Guarantee() {
                 Aanbevolen
               </div>
 
-              <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', color: '#8C6239', textTransform: 'uppercase', marginBottom: 12 }}>
+              <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', color: '#8C6239', textTransform: 'uppercase', marginBottom: 16 }}>
                 Maandelijks
               </p>
-              <p style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+              <p style={{ fontSize: 'clamp(2rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
                 &euro;444
                 <span style={{ fontSize: '0.45em', fontWeight: 400, color: '#666', marginLeft: 4 }}>/ maand</span>
               </p>
-              <p style={{ fontSize: 13, color: '#999', lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
+              <p style={{ fontSize: 15, color: '#999', lineHeight: 1.6, marginTop: 8, marginBottom: 24 }}>
                 Buddy werkt voor jullie. Maandelijks opzegbaar.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
                 {monthlyFeatures.map((f) => (
-                  <div key={f} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                    <span style={{ color: '#4ade80', fontSize: 12, lineHeight: '1.5', flexShrink: 0 }}>&#10003;</span>
-                    <span style={{ color: '#ccc', fontSize: 13, lineHeight: 1.5 }}>{f}</span>
+                  <div key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                    <span style={{ color: '#4ade80', fontSize: 14, lineHeight: '1.6', flexShrink: 0 }}>&#10003;</span>
+                    <span style={{ color: '#ccc', fontSize: 14, lineHeight: 1.6 }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -119,8 +119,8 @@ export default function Guarantee() {
               <button
                 onClick={openCalendly}
                 style={{
-                  marginTop: 20,
-                  padding: '12px 20px',
+                  marginTop: 28,
+                  padding: '14px 24px',
                   borderRadius: 8,
                   border: 'none',
                   backgroundColor: '#fff',
@@ -144,27 +144,27 @@ export default function Guarantee() {
                 background: '#1a1a1a',
                 borderRadius: 16,
                 border: '1px solid #2a2a2a',
-                padding: 'clamp(20px, 2.5vw, 32px)',
+                padding: 'clamp(28px, 3vw, 40px)',
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', color: '#8C6239', textTransform: 'uppercase', marginBottom: 12 }}>
+              <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', color: '#8C6239', textTransform: 'uppercase', marginBottom: 16 }}>
                 Eenmalig
               </p>
-              <p style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
+              <p style={{ fontSize: 'clamp(2rem, 3.5vw, 2.5rem)', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em' }}>
                 &euro;4.444
                 <span style={{ fontSize: '0.45em', fontWeight: 400, color: '#666', marginLeft: 4 }}>eenmalig</span>
               </p>
-              <p style={{ fontSize: 13, color: '#999', lineHeight: 1.5, marginTop: 6, marginBottom: 16 }}>
+              <p style={{ fontSize: 15, color: '#999', lineHeight: 1.6, marginTop: 8, marginBottom: 24 }}>
                 Buddy is van jullie. Voor altijd.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
                 {onceFeatures.map((f) => (
-                  <div key={f} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                    <span style={{ color: '#4ade80', fontSize: 12, lineHeight: '1.5', flexShrink: 0 }}>&#10003;</span>
-                    <span style={{ color: '#ccc', fontSize: 13, lineHeight: 1.5 }}>{f}</span>
+                  <div key={f} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                    <span style={{ color: '#4ade80', fontSize: 14, lineHeight: '1.6', flexShrink: 0 }}>&#10003;</span>
+                    <span style={{ color: '#ccc', fontSize: 14, lineHeight: 1.6 }}>{f}</span>
                   </div>
                 ))}
               </div>
@@ -172,8 +172,8 @@ export default function Guarantee() {
               <button
                 onClick={openCalendly}
                 style={{
-                  marginTop: 20,
-                  padding: '12px 20px',
+                  marginTop: 28,
+                  padding: '14px 24px',
                   borderRadius: 8,
                   border: '1px solid #fff',
                   backgroundColor: 'transparent',
@@ -193,7 +193,7 @@ export default function Guarantee() {
 
           {/* RIGHT — Buddy hand */}
           <div className="guarantee-buddy opacity-0 flex justify-center">
-            <div className="relative w-full max-w-[500px] aspect-[720/960]" style={{ maxHeight: '50vh' }}>
+            <div className="relative w-full max-w-[720px] aspect-[720/960]">
               <Image
                 src="/images/buddy hand.png"
                 alt="Buddy steekt zijn hand uit"

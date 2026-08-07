@@ -72,12 +72,12 @@ export default function ProductSuite() {
       ref={sectionRef}
       id="hoe-ik-werk"
       className="px-5 sm:px-6 lg:px-16 xl:px-24"
-      style={{ paddingTop: 'clamp(48px, 8vw, 100px)', paddingBottom: 'clamp(48px, 8vw, 120px)' }}
+      style={{ paddingTop: 'clamp(80px, 12vw, 160px)', paddingBottom: 'clamp(80px, 12vw, 180px)' }}
     >
       <div className="max-w-[1500px] mx-auto">
 
         {/* Intro — text left, Buddy right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center" style={{ marginBottom: 'clamp(40px, 6vw, 80px)' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24 items-center" style={{ marginBottom: 'clamp(60px, 10vw, 120px)' }}>
           <div>
             <h2
               className="text-text-primary"
@@ -164,7 +164,7 @@ export default function ProductSuite() {
         </div>
 
         {/* Bottom cards */}
-        <div className="sticky-grid grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-10" style={{ marginTop: 'clamp(40px, 6vw, 80px)' }}>
+        <div className="sticky-grid grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10 lg:gap-14" style={{ marginTop: 'clamp(60px, 10vw, 120px)' }}>
           {cards.map((card) => (
             <div
               key={card.label}

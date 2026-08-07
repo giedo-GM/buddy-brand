@@ -85,7 +85,7 @@ export default function SplitFeature() {
     <section
       ref={sectionRef}
       id="split-feature"
-      style={{ paddingTop: 'clamp(40px, 6vw, 100px)', paddingBottom: 'clamp(40px, 6vw, 100px)' }}
+      style={{ paddingTop: 'clamp(60px, 10vw, 140px)', paddingBottom: 'clamp(60px, 10vw, 140px)' }}
     >
       <div className="max-w-[1500px] mx-auto px-5 sm:px-6 lg:px-16 xl:px-24">
 
