@@ -14,16 +14,16 @@ export default function Hero() {
     if (!section || !video) return
 
     let scrollHandler: (() => void) | null = null
+    let videoDuration = 0
 
-    const setup = () => {
-      const duration = video.duration
-      if (!duration || !isFinite(duration)) return
-
+    const attachScroll = () => {
       scrollHandler = () => {
         const rect = section.getBoundingClientRect()
         const progress = Math.max(0, Math.min(1, -rect.top / (section.offsetHeight - window.innerHeight)))
 
-        video.currentTime = progress * duration
+        if (videoDuration > 0 && video.readyState >= 2) {
+          video.currentTime = progress * videoDuration
+        }
 
         const introEl = document.getElementById('hero-intro')
         const outroEl = document.getElementById('hero-outro')
@@ -53,22 +53,24 @@ export default function Hero() {
     }
 
     const initVideo = () => {
+      videoDuration = video.duration
+      if (!videoDuration || !isFinite(videoDuration)) return
       const playPromise = video.play()
       if (playPromise !== undefined) {
         playPromise.then(() => {
           video.pause()
           video.currentTime = 0
-          setup()
-        }).catch(() => {
-          setup()
-        })
+        }).catch(() => {})
       } else {
         video.pause()
         video.currentTime = 0
-        setup()
       }
     }
 
+    // Always attach scroll handler for text animations
+    attachScroll()
+
+    // Set up video seeking when ready
     if (video.readyState >= 2) {
       initVideo()
     } else {
